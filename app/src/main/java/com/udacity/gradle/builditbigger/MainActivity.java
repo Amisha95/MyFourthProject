@@ -1,9 +1,16 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import com.example.Jokes;
+import com.example.m1.myandroidlibrary.JokeAndroidActivity;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -37,13 +44,34 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-/*    public void tellJoke(View view){
-        Jokes jokes=new Jokes();
+    public void tellJoke(View view){
+     //   Jokes jokes=new Jokes();
      //   Toast.makeText(this, jokes.getJoke(), Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(this, JokeAndroidActivity.class);
-        intent.putExtra("joke", jokes.getJoke());
-        startActivity(intent);
-    } */
+     //   Intent intent=new Intent(this, JokeAndroidActivity.class);
+     //   intent.putExtra("joke", jokes.getJoke());
+     //   startActivity(intent);
+        String Joke=new Jokes().getJoke();
+        new EndpointsAsyncTask()
+        {
+            @Override
+        protected void onPostExecute(String result)
+            {
+                if(result!=null)
+                {
+                    startActivity(launchJoke(MainActivity.this,result));
+                }
+                else {
+                Toast.makeText(MainActivity.this, "No Joke Available", Toast.LENGTH_LONG).show();
+            }
+            }
+        }.execute();
 
+    }
+
+    public static Intent launchJoke(Context context, String Joke){
+        Intent myIntent = new Intent(context, JokeAndroidActivity.class);
+        myIntent.putExtra("joke", Joke);
+        return(myIntent);
+    }
 
 }
