@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.Jokes;
 import com.example.m1.myandroidlibrary.JokeAndroidActivity;
 
 
@@ -50,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
      //   Intent intent=new Intent(this, JokeAndroidActivity.class);
      //   intent.putExtra("joke", jokes.getJoke());
      //   startActivity(intent);
-        String Joke=new Jokes().getJoke();
+
         new EndpointsAsyncTask()
         {
             @Override
@@ -73,5 +72,4 @@ public class MainActivity extends ActionBarActivity {
         myIntent.putExtra("joke", Joke);
         return(myIntent);
     }
-
 }
