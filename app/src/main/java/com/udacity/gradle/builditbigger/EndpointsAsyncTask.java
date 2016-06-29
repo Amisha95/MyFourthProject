@@ -3,7 +3,6 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.m1.myapplication.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -13,12 +12,12 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
-class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
 
     @Override
-    protected String doInBackground(Void...params) {
+    protected String doInBackground(Context... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -37,25 +36,21 @@ class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
             myApiService = builder.build();
         }
 
-      //  context=params[0];
-        String Joke=null;
+        context=params[0];
 
         try {
-            Joke=myApiService.sayHi("").execute().getData();
-          //  Joke=myApiService.getJoke().execute().getData();
+            return myApiService.sayHi().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
-        return Joke;
     }
 
-    @Override
+ /*   @Override
     protected void onPostExecute(String result) {
-     /*   super.onPostExecute(result);
+        super.onPostExecute(result);
         Intent intent=new Intent(context, JokeAndroidActivity.class);
         intent.putExtra("joke",result);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent); */
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
-    }
+        context.startActivity(intent);
+    } */
 }
