@@ -1,6 +1,7 @@
 // If you would like more information on the gradle-appengine-plugin please refer to the github page
 // https://github.com/GoogleCloudPlatform/gradle-appengine-plugin
 
+
 buildscript {
     repositories {
         jcenter()
@@ -13,6 +14,7 @@ buildscript {
 repositories {
     jcenter();
 }
+
 
 apply plugin: 'java'
 apply plugin: 'war'
@@ -30,7 +32,8 @@ dependencies {
 }
 
 appengine {
-  downloadSdk = true
+    downloadSdk = true
+    httpAddress = "0.0.0.0"
   appcfg {
     oauth2 = true
   }
