@@ -36,7 +36,10 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApiService = builder.build();
         }
 
+        if(params.length!=0)
+        {
         context=params[0];
+        }
 
         try {
             return myApiService.sayHi().execute().getData();
