@@ -1,6 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.Jokes;
+import com.example.m1.myandroidlibrary.JokeAndroidActivity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -37,9 +39,15 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
+                    Intent intent=new Intent(getActivity().getApplicationContext(), JokeAndroidActivity.class);
+                    intent.putExtra("joke",joke.getJoke());
                     new EndpointsAsyncTask().execute(getActivity().getApplicationContext());
+                    startActivity(intent);
                 } else {
+                    Intent intent=new Intent(getActivity().getApplicationContext(), JokeAndroidActivity.class);
+                    intent.putExtra("joke",joke.getJoke());
                     new EndpointsAsyncTask().execute(getActivity().getApplicationContext());
+                    startActivity(intent);
                 }
             }
         });
